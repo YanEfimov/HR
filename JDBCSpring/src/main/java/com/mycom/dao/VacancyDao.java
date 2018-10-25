@@ -9,6 +9,7 @@ public interface VacancyDao {
 	public static final String SQL_SORTFORSALARYTO = "select * from "+Vacancy.TABLE_NAME+" order by "+Vacancy.SALARYTO_COLUMN;
 	public static final String SQL_SORTFORSALARYFROM = "select * from "+Vacancy.TABLE_NAME+" order by "+Vacancy.SALARYFROM_COLUMN;
 	public static final String SQL_FINDFORCREATE = "select * from "+Vacancy.TABLE_NAME+" where "+Vacancy.IDDEVELOPER+"=?";
+	public static final String SQL_FINDBYID = "select * from "+Vacancy.TABLE_NAME+" where "+Vacancy.ID_COLUMN+"=?";
 	public static final String SQL_INSERT = "insert into "+Vacancy.TABLE_NAME+"("+Vacancy.POSITION_COLUMN+", "+Vacancy.SALARYTO_COLUMN+""
 			+ ", "+Vacancy.SALARYFROM_COLUMN+","+Vacancy.EXPERIENCEYEARREQUIRE_COLUMN+","+Vacancy.IDDEVELOPER+")"
 					+ " values(?,?,?,?,?)";
@@ -21,6 +22,7 @@ public interface VacancyDao {
 	public List<Vacancy> sortForSalaryTo();
 	public List<Vacancy> sortForSalaryFrom();
 	public List<Vacancy> findByCreate(long idDeveloper);
+	public Vacancy findById(long id);
 	public void insert(Vacancy vacancy);
 	public void update(Vacancy vacancy);
 	public void delete(long vacancy_id);

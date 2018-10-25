@@ -1,26 +1,51 @@
 package com.mycom.entity;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 public class Candidate {
-	private static final String TABLE_NAME = "candidate";
-	private static final String SALARY_COLUMN = "salary";
-	private static final String BIRTHDAY_COLUMN = "birthday";
-	private static final String SURNAME_COLUMN = "surname";
-	private static final String NAME_COLUMN = "name";
-	private static final String ID_COLUMN = "id";
-	private static final String CANDIDATESTATE_COLUMN = "candidateState";
+	public static final String TABLE_NAME = "candidate";
+	public static final String SALARY_COLUMN = "salary";
+	public static final String BIRTHDAY_COLUMN = "birthday";
+	public static final String SURNAME_COLUMN = "surname";
+	public static final String NAME_COLUMN = "name";
+	public static final String ID_COLUMN = "id";
+	public static final String CANDIDATESTATE_COLUMN = "candidateState";
 	
-	private long id;
+	private Long id;
+	@DecimalMax("10000.0") @DecimalMin("200") 
 	private double salary;
+    //@DateTimeFormat(pattern="MM/dd/yyyy")
+    @NotNull @Past
 	private Date birthday;
+    @Size(min=2)
 	private String surname;
+    @Size(min=2)
 	private String name;
 	private String candidateState;
-	public long getId() {
+	@NotNull
+	private List<String> skills;
+	
+	
+	public List<String> getSkills() {
+		return skills;
+	}
+	public void setSkills(List<String> skills) {
+		this.skills = skills;
+	}
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public double getSalary() {

@@ -8,11 +8,11 @@
 <h1 align="center">
 	Basic Page
 </h1>
-<p><a href="UserCreate">Create user</a></p>
-<p><a href="VacancyCreate">Create vacancy</a></p>
+<p><a href="ViewUserForm">View users</a></p>
+<p><a href="ViewVacancyForm">View vacancy</a></p>
 <p><a href="FeedbackCreate">Create feedback</a></p>
 <p><a href="SkillCreate">Create skill</a></p>
 <p><a href="InterviewCreate">Create interview</a></p>
-<p><a href="CandidateCreate">Create candidate</a>
+<p><a href="ViewCandidateForm">View candidate</a>
 </body>
 </html>

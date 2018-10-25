@@ -201,7 +201,7 @@ public class JdbcUserDao implements UserDao{
 		Connection connection=null;
 		try {
 			connection=dataSource.getConnection();
-			PreparedStatement statement=connection.prepareStatement(SQL_FINDBYNAME);
+			PreparedStatement statement=connection.prepareStatement(SQL_FINDBYROLE);
 			statement.setString(1, role);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
@@ -226,6 +226,37 @@ public class JdbcUserDao implements UserDao{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public User FindById(long id) {
+		User user = new User();
+		Connection connection=null;
+		try {
+			connection=dataSource.getConnection();
+			PreparedStatement statement=connection.prepareStatement(SQL_FINDBYID);
+			statement.setLong(1, id);
+			ResultSet rs=statement.executeQuery();
+			while (rs.next()) {
+				user.setId(rs.getLong(User.ID_COLUMN));
+				user.setEmail(rs.getString(User.EMAIL_COLUMN));
+				user.setName(rs.getString(User.NAME_COLUMN));
+				user.setSurname(rs.getString(User.SURNAME_COLUMN));
+				user.setPassword(rs.getString(User.PASSWORD_COLUMN));
+				user.setRole(rs.getString(User.ROLE_COLUMN));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return user;
 	}
 
 }
