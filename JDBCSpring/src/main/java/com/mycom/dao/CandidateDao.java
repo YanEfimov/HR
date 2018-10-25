@@ -6,9 +6,9 @@ import com.mycom.entity.Candidate;
 
 public interface CandidateDao {
 	public static final String SQL_FINDALL = "select * from "+Candidate.TABLE_NAME;
-	public static final String SQL_SORT_SALARY = "select * from "+Candidate.TABLE_NAME+" order by"+Candidate.SALARY_COLUMN;
+	public static final String SQL_SORT_SALARY = "select * from "+Candidate.TABLE_NAME+" order by "+Candidate.SALARY_COLUMN;
 	public static final String SQL_FINDBYSTATE = "select * from "+Candidate.TABLE_NAME+" where "+Candidate.CANDIDATESTATE_COLUMN+"=?";
-	public static final String SQL_SORTNAME = "select * from "+Candidate.TABLE_NAME+" order by"+Candidate.NAME_COLUMN;
+	public static final String SQL_SORTNAME = "select * from "+Candidate.TABLE_NAME+" order by "+Candidate.NAME_COLUMN;
 	public static final String SQL_FINDBYID = "select * from "+Candidate.TABLE_NAME+" where "+Candidate.ID_COLUMN+"=?";
 	public static final String SQL_INSERT = "insert into "+Candidate.TABLE_NAME+"("+Candidate.NAME_COLUMN+","+Candidate.SURNAME_COLUMN+","
 			+ ""+Candidate.SALARY_COLUMN+","+Candidate.BIRTHDAY_COLUMN+","+Candidate.CANDIDATESTATE_COLUMN+") values(?,?,?,?,?)";

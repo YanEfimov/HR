@@ -10,6 +10,7 @@
 <body>
 <h1 align="center">create/update Feedback</h1>
         <form:form action="SaveFeedback" method="post" modelAttribute="feedback">
+        <form:hidden path="id"/>
         <table>
             <tr>
                 <td>Reason:</td>

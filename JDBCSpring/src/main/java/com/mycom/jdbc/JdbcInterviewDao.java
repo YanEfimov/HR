@@ -11,22 +11,31 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mycom.dao.InterviewDao;
+import com.mycom.entity.Candidate;
 import com.mycom.entity.Interview;
+import com.mycom.entity.Vacancy;
 
 @Repository("InterviewDao")
 public class JdbcInterviewDao implements InterviewDao{
 
 	private DataSource dataSource;
 	
+	@Autowired
+	private JdbcVacancyDao jdbcvacancydao;
+	
+	@Autowired
+	private JdbcCandidateDao jdbccandidatedao;
+	
 	@Resource(name="dataSource")
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 	
-	private static Interview creater(ResultSet rs) throws SQLException {
+	private Interview creater(ResultSet rs) throws SQLException {
 		Interview interview = new Interview();
 		interview.setId(rs.getLong(Interview.ID_COLUMN));
 		interview.setPlanDate(rs.getDate(Interview.PLANDATE_COLUMN));
@@ -34,6 +43,10 @@ public class JdbcInterviewDao implements InterviewDao{
 		interview.setIdCandidate(rs.getLong(Interview.IDCANDIDATE_COLUMN));
 		interview.setIdVacancy(rs.getLong(Interview.IDVACANCY_COLUMN));
 		interview.setName(rs.getString(Interview.NAME_CLOUMN));
+		Candidate candidate = jdbccandidatedao.findById(interview.getIdCandidate());
+		Vacancy vacancy = jdbcvacancydao.findById(interview.getIdVacancy());
+		interview.setVacancyname(vacancy.getPosition());
+		interview.setCandidatename(candidate.getName()+" "+candidate.getSurname());
 		return interview;
 	}
 	
@@ -176,6 +189,32 @@ public class JdbcInterviewDao implements InterviewDao{
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public Interview FindById(long id) {
+		Interview interview = new Interview();
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			PreparedStatement statement = connection.prepareStatement(SQL_FINDBYID);
+			statement.setLong(1, id);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				interview = creater(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return interview;
 	}
 
 }

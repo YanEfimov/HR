@@ -10,6 +10,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+<span style="float: right">
+	<p>Filter by|<a href="ViewCandidateForm">Find all</a></p>
+    <p>Filter by|<a href="CandidateFilter?type=active">active</a> 
+    | 
+    <a href="CandidateFilter?type=passive">passive</a></p>
+    <p>Sorting by|<a href="CandidateSortName">name</a>|
+    <a href="CandidateSortSalary">salary</a></p>
+</span>
 	<h1 align="center">View candidate</h1>
 	<table border="1">
 		<tr>

@@ -79,13 +79,13 @@ public class CandidateController {
 		return CreateViewForm(model);
 	}
 	
-	@RequestMapping(value = "CandidateEdit", method = RequestMethod.GET)
+	@RequestMapping(value = "/CandidateEdit", method = RequestMethod.GET)
 	public String CandidateEdit(Model model, HttpServletRequest request) {
 		long id = Integer.parseInt(request.getParameter("id"));
 		return CreateCandidateForm(model,jdbccandidatedao.findById(id));
 	}
 	
-	@RequestMapping(value = "CandidateDelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/CandidateDelete", method = RequestMethod.GET)
 	public String CandidateDelete(Model model, HttpServletRequest request) {
 		long id = Integer.parseInt(request.getParameter("id"));
 		jdbccandidatedao.delete(id);
@@ -93,5 +93,22 @@ public class CandidateController {
 		return CreateViewForm(model);
 	}
 	
+	@RequestMapping(value = "/CandidateFilter", method = RequestMethod.GET)
+	public String CandidateFilter(Model model, HttpServletRequest request) {
+		String state = request.getParameter("type");
+		list = jdbccandidatedao.findByState(state);
+		return CreateViewForm(model);
+	}
 	
+	@RequestMapping(value = "/CandidateSortName", method = RequestMethod.GET)
+	public String CandidateSortName(Model model) {
+		list = jdbccandidatedao.sortNameCandidate();
+		return CreateViewForm(model);
+	}
+	
+	@RequestMapping(value = "/CandidateSortSalary", method = RequestMethod.GET)
+	public String CandidateSortSalary(Model model) {
+		list = jdbccandidatedao.sortSalaryCandidate();
+		return CreateViewForm(model);
+	}
 }

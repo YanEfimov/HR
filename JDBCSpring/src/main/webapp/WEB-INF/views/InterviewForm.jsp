@@ -11,6 +11,7 @@
 <h1 align="center">create/update interview</h1>
         <form:form action="SaveInterview" method="post" modelAttribute="interview">
         <table>
+        	<form:hidden path="id"/>
             <tr>
                 <td>Name:</td>
                 <td><form:input path="name" /></td>

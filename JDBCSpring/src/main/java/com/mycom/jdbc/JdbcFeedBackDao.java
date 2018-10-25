@@ -10,28 +10,40 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mycom.dao.FeedBackDao;
 import com.mycom.entity.FeedBack;
+import com.mycom.entity.Interview;
+import com.mycom.entity.User;
 
 @Repository("FeedBackDao")
 public class JdbcFeedBackDao implements FeedBackDao{
 	
 	private DataSource dataSource;
 	
+	@Autowired
+	private JdbcInterviewDao jdbcinterviewdao;
+	@Autowired
+	private JdbcUserDao jdbcuserdao;
+	
 	@Resource(name="dataSource")
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 	
-	private static FeedBack creater(ResultSet rs) throws SQLException {
+	private FeedBack creater(ResultSet rs) throws SQLException {
 		FeedBack feedback = new FeedBack();
 		feedback.setId(rs.getLong(FeedBack.ID_COLUMN));
 		feedback.setIdInterview(rs.getLong(FeedBack.IDINTERVIEW_COLUMN));
 		feedback.setIdInterviewer(rs.getLong(FeedBack.IDINTERVIEWER_COLUMN));
 		feedback.setFeedbackState(rs.getString(FeedBack.FEEDBACKSTATE_COLUMN));
 		feedback.setReason(rs.getString(FeedBack.REASON_COLUMN));
+		Interview interview = jdbcinterviewdao.FindById(feedback.getIdInterview());
+		User user = jdbcuserdao.FindById(feedback.getIdInterviewer());
+		feedback.setInterviewname(interview.getName());
+		feedback.setInterviewername(user.getName()+" "+user.getSurname());
 		return feedback;
 	}
 	
@@ -180,5 +192,31 @@ public class JdbcFeedBackDao implements FeedBackDao{
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public FeedBack findById(long id) {
+		FeedBack feedback = null;
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			PreparedStatement statement = connection.prepareStatement(SQL_FINDBYID);
+			statement.setLong(1, id);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				feedback = creater(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return feedback;
 	}
 }

@@ -12,19 +12,39 @@ public class FeedBack {
 	public static final String IDINTERVIEW_COLUMN = "idInterview";
 	public static final String ID_COLUMN = "id";
 	
-	private long id;
+	private Long id;
 	@Size(min=10)
 	private String reason;
 	private String feedbackState;
 	private long idInterviewer;
 	private long idInterview;
+	private String interviewname;
+	private String interviewername;
+	
+	
 	
 
-	public long getId() {
+	public String getInterviewname() {
+		return interviewname;
+	}
+
+	public void setInterviewname(String interviewname) {
+		this.interviewname = interviewname;
+	}
+
+	public String getInterviewername() {
+		return interviewername;
+	}
+
+	public void setInterviewername(String interviewername) {
+		this.interviewername = interviewername;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

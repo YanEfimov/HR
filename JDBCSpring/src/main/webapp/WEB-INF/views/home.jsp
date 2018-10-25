@@ -10,9 +10,9 @@
 </h1>
 <p><a href="ViewUserForm">View users</a></p>
 <p><a href="ViewVacancyForm">View vacancy</a></p>
-<p><a href="FeedbackCreate">Create feedback</a></p>
-<p><a href="SkillCreate">Create skill</a></p>
-<p><a href="InterviewCreate">Create interview</a></p>
+<p><a href="ViewFeedbackForm">View feedback</a></p>
+<p><a href="ViewSkillForm">View skill</a></p>
+<p><a href="InterviewView">View interview</a></p>
 <p><a href="ViewCandidateForm">View candidate</a>
 </body>
 </html>

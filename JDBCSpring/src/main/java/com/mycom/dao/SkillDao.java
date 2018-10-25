@@ -5,7 +5,7 @@ import com.mycom.entity.Skill;
 
 public interface SkillDao {
 	public static final String SQL_FINDALL = "select * from "+Skill.TABLE_NAME;
-	public static final String SQL_SORTSKILL = "select * from "+Skill.TABLE_NAME+" order by"+Skill.NAME_COLUMN;
+	public static final String SQL_SORTSKILL = "select * from "+Skill.TABLE_NAME+" order by "+Skill.NAME_COLUMN;
 	public static final String SQL_INSERT = "insert into "+Skill.TABLE_NAME+"("+Skill.NAME_COLUMN+") values(?)";
 	public static final String SQL_DELETE = "delete from "+Skill.TABLE_NAME+" where "+Skill.NAME_COLUMN+"=?";
 	

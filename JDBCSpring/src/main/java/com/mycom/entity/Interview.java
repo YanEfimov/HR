@@ -16,7 +16,7 @@ public class Interview {
 	public static final String NAME_CLOUMN = "name";
 	
 	
-	private long id;
+	private Long id;
 	@NotNull @Past
 	private Date factDate;
 	@NotNull @Past
@@ -25,9 +25,22 @@ public class Interview {
 	private long idCandidate;
 	@Size(min=8)
 	private String name;
+	private String candidatename;
+	private String vacancyname;
 	
 	
-	
+	public String getCandidatename() {
+		return candidatename;
+	}
+	public void setCandidatename(String candidatename) {
+		this.candidatename = candidatename;
+	}
+	public String getVacancyname() {
+		return vacancyname;
+	}
+	public void setVacancyname(String vacancyname) {
+		this.vacancyname = vacancyname;
+	}
 	public String getName() {
 		return name;
 	}
@@ -46,10 +59,10 @@ public class Interview {
 	public void setIdCandidate(long idCandidate) {
 		this.idCandidate = idCandidate;
 	}
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public Date getFactDate() {

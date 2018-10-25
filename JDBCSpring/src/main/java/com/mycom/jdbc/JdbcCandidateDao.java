@@ -150,9 +150,11 @@ public class JdbcCandidateDao implements CandidateDao{
 	@Override
 	public void update(Candidate candidate) {
 		Connection connection = null;
+		jdbccandidatecompetencedao.delete(candidate.getId());
+		
 		try {
 			connection = dataSource.getConnection();
-			PreparedStatement statement = connection.prepareStatement(SQL_UPDATE);
+			PreparedStatement statement = connection.prepareStatement(SQL_UPDATE, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, candidate.getName());
 			statement.setString(2, candidate.getSurname());
 			statement.setDouble(3, candidate.getSalary());
@@ -160,6 +162,9 @@ public class JdbcCandidateDao implements CandidateDao{
 			statement.setString(5, candidate.getCandidateState());
 			statement.setLong(6, candidate.getId());
 			statement.execute();
+			ResultSet rs = statement.getGeneratedKeys();
+			while (rs.next())
+				id=rs.getLong(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -170,6 +175,12 @@ public class JdbcCandidateDao implements CandidateDao{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		for (String s:candidate.getSkills()) {
+			CandidateCompetence candidatecompetence = new CandidateCompetence();
+			candidatecompetence.setIdCandidate(id);
+			candidatecompetence.setName(s);
+			jdbccandidatecompetencedao.insert(candidatecompetence);
 		}
 		
 	}
